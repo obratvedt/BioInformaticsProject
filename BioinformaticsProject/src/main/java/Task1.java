@@ -25,13 +25,15 @@ public class Task1 {
             while (line != null) {
                 String longestSuffix = "";
                 int length = line.length();
-                for (int j = line.length() - 1; j >= 0; j--) {
+                for (int j = 0; j < line.length(); j++) {
                     String suffix = line.substring(j, line.length());
                     int ip = Arrays.binarySearch(prefixes, suffix);
                     if (ip >= 0) {
 
                         longestSuffix = suffix;
+                        break;
                     }
+
 
                 }
                 length -= longestSuffix.length();
