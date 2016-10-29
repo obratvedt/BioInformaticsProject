@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 
 public class FileParser {
 
-    public static void readFromFile(String fileName) {
-        Path path = Paths.get("src/main/resources", fileName);
+    private static void readFromFile(String fileName) {
+        Path path = getFilePath(fileName);
         try (Stream<String> lines = Files.lines(path)) {
             lines.forEach(s -> System.out.println(s));
             System.out.println(lines);
@@ -15,6 +15,11 @@ public class FileParser {
             System.out.println(ex.getMessage());
         }
     }
+
+    public static Path getFilePath(String fileName) {
+        return Paths.get("src/main/resources", fileName);
+    }
+
 
     public static void main(String[] args) {
         FileParser.readFromFile("s_3_sequence_1M.txt");
