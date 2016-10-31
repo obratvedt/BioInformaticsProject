@@ -1,4 +1,5 @@
 import javax.print.DocFlavor;
+import javax.print.attribute.TextSyntax;
 import java.util.ArrayList;
 
 
@@ -21,26 +22,9 @@ public class TreeNode {
             children.add(c);
     }
 
-    public int[] stringAmongChildren(String x, boolean debug) {
-        char[] xArray = x.toCharArray();
-        int[] result = new int[]{0, 1};
-        for (TreeNode t : children) {
-            if (debug)
-                System.out.println("Comparing '" + String.valueOf(t.value) + "' with '" + x + "'");
-            if (t.value[0] == xArray[0]) {
-                for (int i = 1; i < xArray.length; i++) {
-                    if (t.value[i] != xArray[i]) {
-                        if (debug)
-                            System.out.println("Match ended at: " + t.value[i] + " - Suffix char: " + xArray[i]);
-                        break;
-                    }
-                    result[1]++;
-                }
-                return result;
-            }
-            result[0]++;
-        }
-        return new int[]{-1, -1};
+    public void removeChild(TreeNode c) {
+        if(children.contains(c))
+            children.remove(c);
     }
 
     public void updateValue(char[] newValue) {
@@ -55,6 +39,10 @@ public class TreeNode {
         return children.get(i);
     }
 
+    public char[] getValue() {
+        return value;
+    }
+
     public int getValueLength() {
         return value.length;
     }
@@ -65,6 +53,17 @@ public class TreeNode {
 
     public String toString() {
         return String.valueOf(value);
+    }
+
+    public ArrayList<TreeNode> getChildren() {
+        return children;
+    }
+
+    public void printChildren() {
+        String s = "";
+        for (TreeNode t : children)
+            s += t.toString() + ",";
+        System.out.println(s);
     }
 
 }
