@@ -2,12 +2,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class FileParser {
 
     private static void readFromFile(String fileName) {
-        Path path = getFilePath(fileName);
+        Path path = Paths.get("src/main/resources", fileName);
         try (Stream<String> lines = Files.lines(path)) {
             lines.forEach(s -> System.out.println(s));
             System.out.println(lines);
@@ -16,8 +17,17 @@ public class FileParser {
         }
     }
 
-    public static Path getFilePath(String fileName) {
-        return Paths.get("src/main/resources", fileName);
+    public static ArrayList<String> getSequences(String fileName) {
+        ArrayList<String> sequences = new ArrayList<>();
+        Path path = Paths.get("src/main/resources", fileName);
+
+        try (Stream<String> lines = Files.lines(path)) {
+            lines.forEach(sequences::add);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return sequences;
     }
 
 
